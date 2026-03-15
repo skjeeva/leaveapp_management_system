@@ -1,116 +1,161 @@
-Leave Management System
+🗂 Leave Management System
 
 A Leave Management System built using Java Spring Boot, Maven, JSP, and MySQL.
-This application allows employees to apply for leave, managers to review requests, and administrators to manage employees and leave policies.
 
-Features
-Employee
+This application helps organizations manage employee leave requests efficiently. Employees can apply for leave, managers can review and approve requests, and administrators can manage employees and leave policies.
 
-Apply for leave
+---
 
-View leave balance
+# 🚀 Features
 
-Track leave request status
+## 👩‍💼 Employee
 
-Manager
+* Apply for leave
+* View available leave balance
+* Track the status of submitted leave requests
 
-Approve or reject leave requests
+## 👨‍💼 Manager
 
-View employee leave requests
+* Approve or reject employee leave requests
+* View leave requests submitted by employees
 
-Admin
+## 🛠 Admin
 
-Manage employees
+* Manage employee records
+* Manage leave types
+* Monitor overall leave records
 
-Manage leave types
+---
 
-Monitor leave records
+# 🧰 Tech Stack
 
-Tech Stack
+## Backend
 
-Backend
+* Java
+* Spring Boot
+* Spring MVC
+* Spring Data JPA
 
-Java
+## Frontend
 
-Spring Boot
+* JSP
+* HTML
+* CSS
 
-Spring MVC
+## Database
 
-Spring Data JPA
+* Oracle DB
 
-Frontend
+## Database Tool
 
-JSP
+* Oracle SQL Developer
 
-HTML
+## Build Tool
 
-CSS
+* Maven
 
-Database
+---
 
-MySQL
+# 📂 Project Structure
 
-Build Tool
-
-Maven
-
-Project Structure
+```
 leaveapp_management_system
 │
-├── controller        # Handles HTTP requests
-├── entity            # Database entities
-├── repository        # JPA repositories
-├── service           # Business logic
-├── exception         # Global exception handling
+├── controller      # Handles HTTP requests
+├── entity          # Database entities
+├── repository      # JPA repositories
+├── service         # Business logic layer
+├── exception       # Global exception handling
 │
 ├── resources
 │   ├── application.properties
-│   └── JSP pages
+│   └── WEBAPP / WEB-INF / jsp     #jsp pages
 │
-└── Leaveapp.sql      # Database schema
-Installation & Setup
-1. Clone the repository
-git clone https://github.com/skjeeva/leaveapp_management_system.git
-2. Navigate to project folder
-cd leaveapp_management_system
-3. Configure database
+└── Leaveapp.sql    # Database schema
+```
 
-Create a MySQL database and import:
+---
+
+# ⚙️ Installation & Setup
+
+## 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/skjeeva/leaveapp_management_system.git
+```
+
+---
+
+## 2️⃣ Navigate to the project directory
+
+```bash
+cd leaveapp_management_system
+```
+
+---
+
+# Database Setup
+
+1️⃣ Open Oracle SQL Developer
+
+# Connect to your Oracle Database using SQL Developer.
+
+2️⃣ Import the SQL file
+
+# Run the script:
 
 Leaveapp.sql
 
-Update application.properties
+This will create the required tables.
 
-spring.datasource.url=jdbc:mysql://localhost:3306/leaveapp
+3️⃣ Configure database connection
+
+# Update application.properties
+
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521:XE
 spring.datasource.username=your_username
 spring.datasource.password=your_password
-4. Run the application
+spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
+spring.jpa.database-platform=org.hibernate.dialect.OracleDialect
+
+
+## 4️⃣ Run the Application
 
 Using Maven:
 
+```bash
 mvn spring-boot:run
+```
 
 Or run the main class:
 
+```
 LeaveappApplication.java
-Application Modules
-Module	Description
-AuthController	Handles login and authentication
-EmployeeController	Employee leave operations
-ManagerController	Manager approval workflow
-AdminController	Admin management features
-Database Entities
+```
 
-User
+---
 
-Role
+# 📦 Application Modules
 
-Employee
+| Module             | Description                       |
+| ------------------ | --------------------------------- |
+| AuthController     | Handles authentication and login  |
+| EmployeeController | Handles employee leave operations |
+| ManagerController  | Handles manager approval workflow |
+| AdminController    | Handles admin management features |
 
-LeaveRequest
+---
 
-LeaveBalance
+# 🗄 Database Entities
 
-LeaveType
+* User
+* Role
+* Employee
+* LeaveRequest
+* LeaveBalance
+* LeaveType
+* EmployeeManager
 
-EmployeeManager
+
+* architecture diagram
+* API endpoints section.
