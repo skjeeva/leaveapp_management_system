@@ -6,8 +6,6 @@
 </head>
 
 <style>
-        /* form layout */
-
     .leave-form{
         display:flex;
         flex-direction:column;
@@ -21,9 +19,6 @@
         border:1px solid #ccc;
         border-radius:4px;
     }
-
-    /* buttons */
-
     .btn-primary{
         background:#2f60d3;
         color:white;
@@ -36,8 +31,6 @@
     .btn-primary:hover{
         background:#254db3;
     }
-
-    /* table style */
 
     .styled-table{
         width:100%;
@@ -59,8 +52,6 @@
         background:#f5f7fb;
     }
 
-    /* card container */
-
     .card-container{
         width:85%;
         margin:30px auto;
@@ -70,14 +61,10 @@
         box-shadow:0 4px 15px rgba(0,0,0,0.1);
     }
 
-    /* page title */
-
     .page-title{
         text-align:center;
         margin-top:40px;
     }
-
-    /* links */
 
     .dashboard-links{
         text-align:center;

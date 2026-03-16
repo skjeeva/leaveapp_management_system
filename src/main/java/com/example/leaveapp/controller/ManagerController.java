@@ -1,13 +1,17 @@
 package com.example.leaveapp.controller;
 
+import com.example.leaveapp.entity.LeaveBalance;
 import com.example.leaveapp.entity.LeaveRequest;
+import com.example.leaveapp.entity.LeaveType;
 import com.example.leaveapp.entity.User;
+import com.example.leaveapp.repository.LeaveBalanceRepository;
 import com.example.leaveapp.repository.LeaveRequestRepository;
-import com.example.leaveapp.repository.LeaveTypeRepository;
 import com.example.leaveapp.service.LeaveService;
 import com.example.leaveapp.service.ManagerService;
 
 import jakarta.servlet.http.HttpSession;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +27,7 @@ public class ManagerController {
     private ManagerService managerService;
 
     @Autowired
-    private LeaveTypeRepository leaveTypeRepo;
+    private LeaveBalanceRepository balanceRepo;
 
     @Autowired
     private LeaveService leaveService;
@@ -89,9 +93,23 @@ public class ManagerController {
     }
 
     @GetMapping("/apply-leave")
-    public String applyLeavePage(Model model){
+    public String applyLeavePage(HttpSession session, Model model){
 
-        model.addAttribute("leaveTypes", leaveTypeRepo.findAll());
+        User manager = (User) session.getAttribute("user");
+
+        if(manager == null){
+            return "redirect:/login";
+        }
+
+        List<LeaveBalance> balances =
+                balanceRepo.findByEmployee(manager);
+
+        List<LeaveType> leaveTypes =
+                balances.stream()
+                        .map(LeaveBalance::getLeaveType)
+                        .toList();
+
+        model.addAttribute("leaveTypes", leaveTypes);
 
         return "manager-apply-leave";
     }

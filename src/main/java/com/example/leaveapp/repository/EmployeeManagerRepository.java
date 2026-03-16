@@ -12,4 +12,7 @@ public interface EmployeeManagerRepository extends JpaRepository<EmployeeManager
 
     EmployeeManager findByEmployeeAndManager(User employee, User manager);
 
+    EmployeeManager findByEmployee(User employee);
+
+    void deleteByEmployee(User employee);
 }

@@ -3,6 +3,8 @@ package com.example.leaveapp.controller;
 import com.example.leaveapp.entity.*;
 import com.example.leaveapp.repository.*;
 
+import jakarta.transaction.Transactional;
+
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -61,9 +63,19 @@ public class AdminController {
         return "redirect:/admin/employees";
     }
 
+    @Transactional
     @GetMapping("/deleteEmployee")
     public String deleteEmployee(Long id){
-        userRepo.deleteById(id);
+
+        User user = userRepo.findById(id).orElse(null);
+
+        if(user != null){
+            leaveRequestRepo.deleteByEmployee(user);
+            leaveBalanceRepo.deleteByEmployee(user);
+            empManagerRepo.deleteByEmployee(user);
+            userRepo.delete(user);
+        }
+
         return "redirect:/admin/employees";
     }
 

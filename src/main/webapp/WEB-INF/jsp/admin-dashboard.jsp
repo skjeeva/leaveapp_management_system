@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -6,58 +7,52 @@
 
 <style>
 
-    .admin-links{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    margin-top:10px;
-    }
+.admin-links{
+display:flex;
+flex-direction:column;
+gap:12px;
+margin-top:10px;
+}
 
-    .admin-btn{
-    display:block;
-    padding:10px;
-    background:#2f60d3;
-    color:white;
-    text-decoration:none;
-    border-radius:6px;
-    width:220px;
-    text-align:center;
-    }
+.admin-btn{
+display:block;
+padding:10px;
+background:#2f60d3;
+color:white;
+text-decoration:none;
+border-radius:6px;
+width:220px;
+text-align:center;
+}
 
-    .admin-btn:hover{
-    background:#254db3;
-    }
+.admin-btn:hover{
+background:#254db3;
+}
 
-    /* Card container */
+.card-container{
+width:85%;
+margin:30px auto;
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
 
-    .card-container{
-    width:85%;
-    margin:30px auto;
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.1);
-    }
+.page-title{
+text-align:center;
+margin-top:40px;
+}
 
-    /* Title */
+.dashboard-links{
+text-align:center;
+margin-top:20px;
+}
 
-    .page-title{
-    text-align:center;
-    margin-top:40px;
-    }
-
-    /* Logout */
-
-    .dashboard-links{
-    text-align:center;
-    margin-top:20px;
-    }
-
-    .dashboard-links a{
-    margin:0 10px;
-    color:#2f60d3;
-    text-decoration:none;
-    }
+.dashboard-links a{
+margin:0 10px;
+color:#2f60d3;
+text-decoration:none;
+}
 
 </style>
 
@@ -73,11 +68,11 @@
 
 <div class="admin-links">
 
-<a class="admin-btn" href="/admin/employees">
+<a class="admin-btn" href="<c:url value='/admin/employees'/>">
 Manage Employees
 </a>
 
-<a class="admin-btn" href="/admin/assign-manager">
+<a class="admin-btn" href="<c:url value='/admin/assign-manager'/>">
 Assign Manager
 </a>
 
@@ -92,23 +87,23 @@ Assign Manager
 
 <div class="admin-links">
 
-<a class="admin-btn" href="/admin/leave-types">
+<a class="admin-btn" href="<c:url value='/admin/leave-types'/>">
 Manage Leave Types
 </a>
 
-<a class="admin-btn" href="/admin/leave-balance">
+<a class="admin-btn" href="<c:url value='/admin/leave-balance'/>">
 View Leave Balance
 </a>
 
-<a class="admin-btn" href="/admin/leave-requests">
-View Employee Leave Requests
+<a class="admin-btn" href="<c:url value='/admin/leave-requests'/>">
+View Leave Requests
 </a>
 
-<a class="admin-btn" href="/admin/manager-leaves">
+<a class="admin-btn" href="<c:url value='/admin/manager-leaves'/>">
 Manager Leave Requests
 </a>
 
-<a class="admin-btn" href="/admin/initialize-balance">
+<a class="admin-btn" href="<c:url value='/admin/initialize-balance'/>">
 Initialize Leave Balance
 </a>
 
@@ -117,7 +112,7 @@ Initialize Leave Balance
 </div>
 
 <div class="dashboard-links">
-<a href="/logout">Logout</a>
+<a href="<c:url value='/logout'/>">Logout</a>
 </div>
 
 </body>

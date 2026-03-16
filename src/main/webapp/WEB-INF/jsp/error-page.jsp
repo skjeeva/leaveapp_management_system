@@ -16,7 +16,6 @@
         height:100vh;
     }
 
-    /* error card */
 
     .error-card{
         background:white;
@@ -27,22 +26,15 @@
         width:350px;
     }
 
-    /* title */
-
     .error-title{
         color:#dc3545;
         margin-bottom:15px;
     }
 
-    /* message */
-
     .error-message{
         color:#333;
         margin-bottom:20px;
     }
-
-    /* button */
-
     .back-btn{
         display:inline-block;
         padding:10px 16px;

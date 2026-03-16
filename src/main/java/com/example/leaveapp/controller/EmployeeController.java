@@ -1,13 +1,16 @@
 package com.example.leaveapp.controller;
 
+import com.example.leaveapp.entity.LeaveBalance;
 import com.example.leaveapp.entity.LeaveRequest;
+import com.example.leaveapp.entity.LeaveType;
 import com.example.leaveapp.entity.User;
 import com.example.leaveapp.repository.LeaveRequestRepository;
 import com.example.leaveapp.repository.LeaveBalanceRepository;
-import com.example.leaveapp.repository.LeaveTypeRepository;
 import com.example.leaveapp.service.LeaveService;
 
 import jakarta.servlet.http.HttpSession;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +30,6 @@ public class EmployeeController {
     @Autowired
     private LeaveService leaveService;
 
-    @Autowired
-    private LeaveTypeRepository leaveTypeRepo;
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model){
@@ -45,8 +46,15 @@ public class EmployeeController {
         model.addAttribute("balances",
                 balanceRepo.findByEmployee(user));
 
-        model.addAttribute("leaveTypes",
-            leaveTypeRepo.findAll());
+        List<LeaveBalance> balances =
+        balanceRepo.findByEmployee(user);
+
+        List<LeaveType> leaveTypes =
+                balances.stream()
+                        .map(LeaveBalance::getLeaveType)
+                        .toList();
+
+        model.addAttribute("leaveTypes", leaveTypes);
 
         return "employee-dashboard";
     }

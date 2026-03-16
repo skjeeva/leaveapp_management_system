@@ -23,13 +23,9 @@ public class ManagerService {
 
     public List<LeaveRequest> getTeamLeaveRequests(User manager){
 
-        List<EmployeeManager> mappings =
-                empManagerRepo.findByManager(manager);
+        List<EmployeeManager> mappings = empManagerRepo.findByManager(manager);
 
-        List<User> employees =
-                mappings.stream()
-                        .map(EmployeeManager::getEmployee)
-                        .toList();
+        List<User> employees = mappings.stream().map(EmployeeManager::getEmployee).toList();
 
         return leaveRepo.findByEmployeeIn(employees);
     }
@@ -43,21 +39,17 @@ public class ManagerService {
             throw new RuntimeException("Leave request not found");
         }
 
-        // Manager cannot approve their own leave
         if(request.getEmployee().getUserId()
                 .equals(manager.getUserId())){
 
             throw new RuntimeException(
                     "Managers cannot approve their own leave");
         }
-
-        // Only pending requests
         if(!"PENDING".equals(request.getStatus())){
             throw new RuntimeException(
                     "Leave request already processed");
         }
 
-        // Validate employee belongs to this manager
         EmployeeManager mapping =
                 empManagerRepo.findByEmployeeAndManager(
                         request.getEmployee(),
@@ -68,21 +60,14 @@ public class ManagerService {
                     "You are not allowed to approve this employee's leave");
         }
 
-        // Get leave balance
-        LeaveBalance balance =
-                balanceRepo.findByEmployeeAndLeaveType(
-                        request.getEmployee(),
-                        request.getLeaveType());
+        LeaveBalance balance =balanceRepo.findByEmployeeAndLeaveType(request.getEmployee(),request.getLeaveType());
 
         if(balance == null){
             throw new RuntimeException(
                     "Leave balance not initialized");
         }
 
-        long days =
-                ChronoUnit.DAYS.between(
-                        request.getStartDate(),
-                        request.getEndDate()) + 1;
+        long days = ChronoUnit.DAYS.between(request.getStartDate(),request.getEndDate()) + 1;
 
         balance.setUsedDays(balance.getUsedDays() + (int)days);
         balance.setRemainingDays(balance.getRemainingDays() - (int)days);

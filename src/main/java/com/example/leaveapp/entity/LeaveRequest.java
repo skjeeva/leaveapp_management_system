@@ -115,18 +115,5 @@ public class LeaveRequest {
         this.appliedDate = appliedDate;
     }
 
-    public String getLeavePeriodStatus(){
-
-        LocalDate today = LocalDate.now();
-
-        if(!"APPROVED".equals(status)) return "";
-
-        if(today.isBefore(startDate)) return "Upcoming";
-
-        if((today.isEqual(startDate) || today.isAfter(startDate)) && (today.isEqual(endDate) || today.isBefore(endDate)))
-            return "On Leave";
-
-        return "Completed";
-    }
 }
 

@@ -12,14 +12,10 @@
         background:#eef2f7;
     }
 
-    /* page title */
-
     .page-title{
         text-align:center;
         margin-top:40px;
     }
-
-    /* card container */
 
     .card-container{
         width:420px;
@@ -29,8 +25,6 @@
         border-radius:12px;
         box-shadow:0 4px 20px rgba(0,0,0,0.1);
     }
-
-    /* form */
 
     .form-group{
         margin-bottom:18px;
@@ -49,8 +43,6 @@
         border-radius:6px;
     }
 
-    /* button */
-
     .btn-primary{
         background:#2f60d3;
         color:white;
@@ -63,8 +55,6 @@
     .btn-primary:hover{
         background:#254db3;
     }
-
-    /* dashboard link */
 
     .dashboard-links{
         text-align:center;

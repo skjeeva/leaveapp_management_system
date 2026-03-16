@@ -10,10 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+
 public class AuthController {
 
     @Autowired
     private UserRepository userRepo;
+
+    @GetMapping("/leaveapp")
+    public String home(){
+        return "redirect:/login";
+    }
 
     @GetMapping("/login")
     public String loginPage(){

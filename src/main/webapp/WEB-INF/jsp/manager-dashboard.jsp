@@ -12,16 +12,10 @@
         font-family: Arial, sans-serif;
         background:#eef2f7;
     }
-
-    /* title */
-
     .page-title{
         text-align:center;
         margin-top:40px;
     }
-
-    /* action links */
-
     .manager-actions{
         text-align:center;
         margin-top:20px;
@@ -41,8 +35,6 @@
         background:#254db3;
     }
 
-    /* card */
-
     .card-container{
         width:85%;
         margin:40px auto;
@@ -51,9 +43,6 @@
         border-radius:12px;
         box-shadow:0 4px 20px rgba(0,0,0,0.1);
     }
-
-    /* table */
-
     .styled-table{
         width:100%;
         border-collapse:collapse;
@@ -74,8 +63,6 @@
     .styled-table tr:hover{
         background:#f5f7fb;
     }
-
-    /* buttons */
 
     .inline-form{
         display:inline-block;
@@ -101,8 +88,6 @@
         padding:5px;
     }
 
-    /* flash messages */
-
     .flash-success{
         background:#d4edda;
         color:#155724;
@@ -120,9 +105,6 @@
     .processed{
         color:gray;
     }
-
-    /* bottom links */
-
     .dashboard-links{
         text-align:center;
         margin-top:25px;

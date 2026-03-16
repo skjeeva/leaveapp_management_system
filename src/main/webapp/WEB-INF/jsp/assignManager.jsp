@@ -12,14 +12,10 @@
         background:#eef2f7;
     }
 
-    /* title */
-
     .page-title{
         text-align:center;
         margin-top:40px;
     }
-
-    /* card */
 
     .card-container{
         width:45%;
@@ -29,8 +25,6 @@
         border-radius:12px;
         box-shadow:0 4px 20px rgba(0,0,0,0.1);
     }
-
-    /* form */
 
     .form-group{
         margin-bottom:20px;
@@ -42,8 +36,6 @@
         border:1px solid #ccc;
         border-radius:5px;
     }
-
-    /* button */
 
     .btn-primary{
         background:#2f60d3;
@@ -57,8 +49,6 @@
     .btn-primary:hover{
         background:#254db3;
     }
-
-    /* links */
 
     .dashboard-links{
         text-align:center;

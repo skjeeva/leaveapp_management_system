@@ -12,14 +12,10 @@
         background:#eef2f7;
     }
 
-    /* title */
-
     .page-title{
         text-align:center;
         margin-top:40px;
     }
-
-    /* card */
 
     .card-container{
         width:85%;
@@ -30,7 +26,6 @@
         box-shadow:0 4px 20px rgba(0,0,0,0.1);
     }
 
-    /* table */
 
     .styled-table{
         width:100%;
@@ -51,8 +46,6 @@
     .styled-table tr:hover{
         background:#f5f7fb;
     }
-
-    /* buttons */
 
     .btn-approve{
         background:#28a745;
@@ -87,7 +80,6 @@
         border-radius:4px;
     }
 
-    /* link */
 
     .dashboard-links{
         text-align:center;
