@@ -15,4 +15,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByRole_RoleNameNot(String roleName);
 
+    List<User> findByDeletedFalseAndRole_RoleNameNot(String string);
+
+    List<User> findByDeletedFalseAndRole(Role empRole);
+
+    User findByEmailAndDeletedFalse(String email);
+
 }

@@ -14,4 +14,8 @@ public interface LeaveBalanceRepository extends JpaRepository<LeaveBalance, Long
     LeaveBalance findByEmployeeAndLeaveType(User employee, LeaveType leaveType);
 
     void deleteByEmployee(User employee);
+
+    LeaveBalance findByEmployeeAndLeaveTypeAndYear(User employee, LeaveType type, int year);
+
+    List<LeaveBalance> findByEmployee_DeletedFalse();
 }

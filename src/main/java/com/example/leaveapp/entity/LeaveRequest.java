@@ -3,6 +3,8 @@ package com.example.leaveapp.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "LEAVE_REQUESTS")
 public class LeaveRequest {
@@ -25,9 +27,11 @@ public class LeaveRequest {
     @JoinColumn(name = "LEAVE_TYPE_ID")
     private LeaveType leaveType;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "START_DATE")
     private LocalDate startDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "END_DATE")
     private LocalDate endDate;
 

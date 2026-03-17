@@ -1,4 +1,5 @@
-<%@ page import="java.util.*, com.example.leaveapp.entity.LeaveType" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 
@@ -6,53 +7,75 @@
 <title>Leave Types</title>
 
 <style>
-
     body{
-        font-family: Arial, sans-serif;
-        background:#eef2f7;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #eef2f7, #dbeafe);
+        margin:0;
     }
 
     .page-title{
         text-align:center;
         margin-top:40px;
+        color:#333;
     }
+
     .card-container{
-        width:600px;
+        width:650px;
         margin:40px auto;
         background:white;
-        padding:30px;
-        border-radius:12px;
-        box-shadow:0 4px 20px rgba(0,0,0,0.1);
+        padding:35px;
+        border-radius:16px;
+        box-shadow:0 6px 25px rgba(0,0,0,0.08);
+        transition:0.25s ease;
     }
+
+    .card-container:hover{
+        transform:translateY(-3px);
+    }
+
     .form-group{
-        margin-bottom:18px;
+        margin-bottom:20px;
     }
 
     label{
-        font-weight:bold;
+        font-weight:600;
+        color:#444;
     }
 
     input{
         width:100%;
-        padding:8px;
+        padding:10px;
         margin-top:6px;
         border:1px solid #ccc;
-        border-radius:6px;
+        border-radius:8px;
+        transition:0.2s ease;
+    }
+
+    input:focus{
+        border-color:#2f60d3;
+        outline:none;
+        box-shadow:0 0 6px rgba(47,96,211,0.3);
     }
 
     .btn-primary{
-        background:#2f60d3;
+        width:100%;
+        background: linear-gradient(135deg, #2f60d3, #4a7df0);
         color:white;
         border:none;
-        padding:10px 16px;
-        border-radius:6px;
+        padding:12px;
+        border-radius:8px;
         cursor:pointer;
+        transition:0.25s ease;
     }
 
     .btn-primary:hover{
-        background:#254db3;
+        transform:translateY(-2px);
+        box-shadow:0 6px 18px rgba(47,96,211,0.3);
     }
 
+    .btn-primary:active{
+        transform:scale(0.97);
+    }
 
     .styled-table{
         width:100%;
@@ -61,29 +84,40 @@
     }
 
     .styled-table th{
-        background:#2f60d3;
+        background: linear-gradient(135deg, #2f60d3, #4a7df0);
         color:white;
         padding:12px;
+        text-align:center;
     }
 
     .styled-table td{
-        padding:10px;
+        padding:12px;
         border-bottom:1px solid #eee;
+        text-align:center;
     }
 
     .styled-table tr:hover{
         background:#f5f7fb;
     }
+
     .dashboard-links{
-        text-align:center;
-        margin-top:20px;
+        display:flex;
+        justify-content:center;
+        margin:30px 0;
     }
 
     .dashboard-links a{
-        color:#2f60d3;
+        padding:10px 18px;
+        background:#2f60d3;
+        color:white;
         text-decoration:none;
+        border-radius:8px;
+        transition:0.2s ease;
     }
 
+    .dashboard-links a:hover{
+        background:#254db3;
+    }
 </style>
 
 </head>
@@ -93,10 +127,10 @@
 <h2 class="page-title">Leave Types</h2>
 
 <div class="card-container">
-
+<jsp:include page="error.jsp"/>
 <h3>Add Leave Type</h3>
 
-<form action="/admin/addLeaveType" method="post">
+<form action="<c:url value='/admin/addLeaveType'/>" method="post">
 
 <div class="form-group">
 <label>Leave Name</label>
@@ -126,38 +160,26 @@ Add Leave Type
 <th>Max Days</th>
 </tr>
 
-<%
-
-List<LeaveType> types =
-(List<LeaveType>) request.getAttribute("leaveTypes");
-
-if(types != null){
-
-for(LeaveType t : types){
-
-%>
+<c:forEach var="t" items="${leaveTypes}">
 
 <tr>
 
-<td><%= t.getLeaveTypeId() %></td>
+<td>${t.leaveTypeId}</td>
 
-<td><%= t.getLeaveTypeName() %></td>
+<td>${t.leaveTypeName}</td>
 
-<td><%= t.getMaxDaysPerYear() %></td>
+<td>${t.maxDaysPerYear}</td>
 
 </tr>
 
-<%
-}
-}
-%>
+</c:forEach>
 
 </table>
 
 </div>
 
 <div class="dashboard-links">
-<a href="/admin/dashboard">Back to Dashboard</a>
+<a href="<c:url value='/admin/dashboard'/>">Back to Dashboard</a>
 </div>
 
 </body>

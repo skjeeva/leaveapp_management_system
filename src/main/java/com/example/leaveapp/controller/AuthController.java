@@ -1,7 +1,7 @@
 package com.example.leaveapp.controller;
 
 import com.example.leaveapp.entity.User;
-import com.example.leaveapp.repository.UserRepository;
+import com.example.leaveapp.service.AuthService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -10,40 +10,40 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-
 public class AuthController {
 
     @Autowired
-    private UserRepository userRepo;
+    private AuthService authService;
 
     @GetMapping("/leaveapp")
-    public String home(){
+    public String home() {
         return "redirect:/login";
     }
 
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage() {
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(String email, String password, HttpSession session){
+    public String login(String email, String password, HttpSession session) {
 
-        User user = userRepo.findByEmail(email);
+        User user = authService.login(email, password);
 
-        if(user == null || !user.getPassword().equals(password)){
+        if (user == null) {
             return "login";
         }
 
         session.setAttribute("user", user);
+        session.setAttribute("role", user.getRole().getRoleName());
 
         String role = user.getRole().getRoleName();
 
-        if(role.equals("ADMIN")){
+        if ("ADMIN".equals(role)) {
             return "redirect:/admin/dashboard";
         }
 
-        if(role.equals("MANAGER")){
+        if ("MANAGER".equals(role)) {
             return "redirect:/manager/dashboard";
         }
 
@@ -51,8 +51,10 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
+
         session.invalidate();
+
         return "redirect:/login";
     }
 }

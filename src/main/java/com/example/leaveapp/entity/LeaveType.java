@@ -13,7 +13,7 @@ public class LeaveType {
             sequenceName = "LEAVE_TYPE_SEQ",
             allocationSize = 1
     )
-    @Column(name="LEAVE_TYPE_ID")
+    @Column(name = "LEAVE_TYPE_ID")
     private Long leaveTypeId;
 
     @Column(name = "LEAVE_TYPE_NAME")
@@ -44,5 +44,9 @@ public class LeaveType {
 
     public void setMaxDaysPerYear(int maxDaysPerYear) {
         this.maxDaysPerYear = maxDaysPerYear;
+    }
+
+    public int getMaxDays() {
+        return maxDaysPerYear;
     }
 }

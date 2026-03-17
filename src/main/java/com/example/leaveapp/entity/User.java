@@ -19,7 +19,8 @@ public class User {
     
     @Column(name = "NAME")
     private String name;
-    @Column(name = "EMAIL")
+
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(name = "PASSWORD")
     private String password;
@@ -27,6 +28,9 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_AT")
     private Date createdAt;
+
+    @Column(name = "DELETED", nullable = false)
+    private Boolean deleted = false;
 
     @ManyToOne
     @JoinColumn(name = "ROLE_ID")
@@ -78,5 +82,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public boolean isDeleted() {
+    return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

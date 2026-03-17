@@ -1,5 +1,5 @@
-<%@ page import="java.util.*,com.example.leaveapp.entity.LeaveRequest" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 
@@ -7,42 +7,53 @@
 <title>Manager Dashboard</title>
 
 <style>
-
     body{
-        font-family: Arial, sans-serif;
-        background:#eef2f7;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #eef2f7, #dbeafe);
+        margin:0;
     }
+
     .page-title{
         text-align:center;
         margin-top:40px;
+        color:#333;
     }
+
     .manager-actions{
-        text-align:center;
-        margin-top:20px;
+        display:flex;
+        justify-content:center;
+        gap:15px;
+        margin-top:25px;
     }
 
     .manager-actions a{
-        display:inline-block;
-        margin:10px;
-        padding:10px 18px;
-        background:#2f60d3;
+        padding:10px 20px;
+        background: linear-gradient(135deg, #2f60d3, #4a7df0);
         color:white;
         text-decoration:none;
-        border-radius:6px;
+        border-radius:8px;
+        transition:0.25s ease;
     }
 
     .manager-actions a:hover{
-        background:#254db3;
+        transform:translateY(-2px);
+        box-shadow:0 6px 18px rgba(47,96,211,0.3);
     }
 
     .card-container{
-        width:85%;
+        width:90%;
         margin:40px auto;
         background:white;
         padding:30px;
-        border-radius:12px;
-        box-shadow:0 4px 20px rgba(0,0,0,0.1);
+        border-radius:16px;
+        box-shadow:0 6px 25px rgba(0,0,0,0.08);
+        transition:0.25s ease;
     }
+
+    .card-container:hover{
+        transform:translateY(-3px);
+    }
+
     .styled-table{
         width:100%;
         border-collapse:collapse;
@@ -50,70 +61,117 @@
     }
 
     .styled-table th{
-        background:#2f60d3;
+        background: linear-gradient(135deg, #2f60d3, #4a7df0);
         color:white;
         padding:14px;
+        text-align:center;
     }
 
     .styled-table td{
         padding:12px;
         border-bottom:1px solid #eee;
+        text-align:center;
     }
 
     .styled-table tr:hover{
         background:#f5f7fb;
     }
 
+    .status{
+        padding:5px 12px;
+        border-radius:20px;
+        font-size:12px;
+        font-weight:600;
+    }
+
+    .status.approved{
+        background:#d4edda;
+        color:#155724;
+    }
+
+    .status.rejected{
+        background:#f8d7da;
+        color:#721c24;
+    }
+
+    .status.pending{
+        background:#fff3cd;
+        color:#856404;
+    }
+
     .inline-form{
-        display:inline-block;
+        display:inline-flex;
+        gap:6px;
+        align-items:center;
     }
 
     .btn-approve{
-        background:#28a745;
+        background: linear-gradient(135deg, #28a745, #34d058);
         color:white;
         border:none;
         padding:6px 12px;
+        border-radius:6px;
         cursor:pointer;
+        transition:0.2s ease;
+    }
+
+    .btn-approve:hover{
+        transform:scale(1.05);
+        box-shadow:0 4px 10px rgba(40,167,69,0.3);
     }
 
     .btn-reject{
-        background:#dc3545;
+        background: linear-gradient(135deg, #dc3545, #ff6b6b);
         color:white;
         border:none;
         padding:6px 12px;
+        border-radius:6px;
         cursor:pointer;
+        transition:0.2s ease;
+    }
+
+    .btn-reject:hover{
+        transform:scale(1.05);
+        box-shadow:0 4px 10px rgba(220,53,69,0.3);
     }
 
     .comment-box{
-        padding:5px;
+        padding:7px;
+        border:1px solid #ccc;
+        border-radius:6px;
+        transition:0.2s ease;
     }
 
-    .flash-success{
-        background:#d4edda;
-        color:#155724;
-        padding:10px;
-        margin-bottom:15px;
-    }
-
-    .flash-error{
-        background:#f8d7da;
-        color:#721c24;
-        padding:10px;
-        margin-bottom:15px;
+    .comment-box:focus{
+        border-color:#2f60d3;
+        outline:none;
+        box-shadow:0 0 5px rgba(47,96,211,0.3);
     }
 
     .processed{
         color:gray;
+        font-weight:500;
     }
+
     .dashboard-links{
-        text-align:center;
-        margin-top:25px;
+        display:flex;
+        justify-content:center;
+        gap:15px;
+        margin:30px 0;
     }
 
     .dashboard-links a{
-        margin:0 10px;
+        padding:10px 18px;
+        background:#2f60d3;
+        color:white;
+        text-decoration:none;
+        border-radius:8px;
+        transition:0.2s ease;
     }
 
+    .dashboard-links a:hover{
+        background:#254db3;
+    }
 </style>
 
 </head>
@@ -123,30 +181,12 @@
 <h2 class="page-title">Manager Dashboard</h2>
 
 <div class="manager-actions">
-
-<a href="/manager/apply-leave">Apply Leave</a>
-
-
-
+    <a href="<c:url value='/manager/apply-leave'/>">Apply Leave</a>
 </div>
-
 
 <div class="card-container">
 
 <h3>Team Leave Requests</h3>
-
-<%
-String success = (String) request.getAttribute("successMessage");
-String error = (String) request.getAttribute("errorMessage");
-%>
-
-<% if(success != null){ %>
-<div class="flash-success"><%= success %></div>
-<% } %>
-
-<% if(error != null){ %>
-<div class="flash-error"><%= error %></div>
-<% } %>
 
 <table class="styled-table">
 
@@ -160,71 +200,72 @@ String error = (String) request.getAttribute("errorMessage");
 <th>Action</th>
 </tr>
 
-<%
-List<LeaveRequest> requests =
-(List<LeaveRequest>) request.getAttribute("leaveRequests");
-
-if(requests != null){
-for(LeaveRequest req : requests){
-%>
+<c:forEach var="req" items="${leaveRequests}">
 
 <tr>
 
-<td><%= req.getEmployee().getName() %></td>
-
-<td><%= req.getLeaveType().getLeaveTypeName() %></td>
-
-<td><%= req.getStartDate() %></td>
-
-<td><%= req.getEndDate() %></td>
-
-<td><%= req.getStatus() %></td>
+<td>${req.employee.name}</td>
+<td>${req.leaveType.leaveTypeName}</td>
+<td>${req.startDate}</td>
+<td>${req.endDate}</td>
 
 <td>
-<%= req.getManagerComment() == null ? "" : req.getManagerComment() %>
+<c:choose>
+    <c:when test="${req.status == 'APPROVED'}">
+        <span class="status approved">Approved</span>
+    </c:when>
+    <c:when test="${req.status == 'REJECTED'}">
+        <span class="status rejected">Rejected</span>
+    </c:when>
+    <c:otherwise>
+        <span class="status pending">Pending</span>
+    </c:otherwise>
+</c:choose>
+</td>
+
+<td>
+<c:choose>
+    <c:when test="${not empty req.managerComment}">
+        ${req.managerComment}
+    </c:when>
+    <c:otherwise>-</c:otherwise>
+</c:choose>
 </td>
 
 <td>
 
-<% if("PENDING".equals(req.getStatus())){ %>
+<c:choose>
 
-<form class="inline-form" action="/manager/approveLeave" method="post">
+<c:when test="${empty req.status or req.status eq 'PENDING'}">
 
-<input type="hidden" name="leaveId" value="<%= req.getLeaveId() %>">
-
-<button class="btn-approve">Approve</button>
-
+<form class="inline-form" action="<c:url value='/manager/approveLeave'/>" method="post">
+    <input type="hidden" name="leaveId" value="${req.leaveId}">
+    <button class="btn-approve">Approve</button>
 </form>
 
-<form class="inline-form" action="/manager/rejectLeave" method="post">
-
-<input type="hidden" name="leaveId" value="<%= req.getLeaveId() %>">
-
-<input class="comment-box" type="text" name="comment" placeholder="Reason" required>
-
-<button class="btn-reject">Reject</button>
-
+<form class="inline-form" action="<c:url value='/manager/rejectLeave'/>" method="post">
+    <input type="hidden" name="leaveId" value="${req.leaveId}">
+    <input class="comment-box" type="text" name="comment" placeholder="Reason" required>
+    <button class="btn-reject">Reject</button>
 </form>
 
-<% } else { %>
+</c:when>
 
-<span class="processed">Processed</span>
+<c:otherwise>
+    <span class="processed">Processed</span>
+</c:otherwise>
 
-<% } %>
+</c:choose>
 
 </td>
 
 </tr>
 
-<%
-}
-}
-%>
+</c:forEach>
 
 </table>
 
 </div>
-
 
 <div class="card-container">
 
@@ -240,47 +281,49 @@ for(LeaveRequest req : requests){
 <th>Admin Comment</th>
 </tr>
 
-<%
-List<LeaveRequest> myLeaves =
-(List<LeaveRequest>) request.getAttribute("myLeaves");
-
-if(myLeaves != null){
-for(LeaveRequest req : myLeaves){
-%>
+<c:forEach var="req" items="${myLeaves}">
 
 <tr>
 
-<td><%= req.getLeaveType().getLeaveTypeName() %></td>
-
-<td><%= req.getStartDate() %></td>
-
-<td><%= req.getEndDate() %></td>
-
-<td><%= req.getStatus() %></td>
+<td>${req.leaveType.leaveTypeName}</td>
+<td>${req.startDate}</td>
+<td>${req.endDate}</td>
 
 <td>
-<%= req.getManagerComment() == null ? "" : req.getManagerComment() %>
+<c:choose>
+    <c:when test="${req.status == 'APPROVED'}">
+        <span class="status approved">Approved</span>
+    </c:when>
+    <c:when test="${req.status == 'REJECTED'}">
+        <span class="status rejected">Rejected</span>
+    </c:when>
+    <c:otherwise>
+        <span class="status pending">Pending</span>
+    </c:otherwise>
+</c:choose>
+</td>
+
+<td>
+<c:choose>
+    <c:when test="${not empty req.managerComment}">
+        ${req.managerComment}
+    </c:when>
+    <c:otherwise>-</c:otherwise>
+</c:choose>
 </td>
 
 </tr>
 
-<%
-}
-}
-%>
+</c:forEach>
+
 
 </table>
 
 </div>
 
-
 <div class="dashboard-links">
-
-<a href="/manager/dashboard">Refresh</a>
-
-<a href="/logout">Logout</a>
-
-<br><br>
+<a href="<c:url value='/manager/dashboard'/>">Refresh</a>
+<a href="<c:url value='/logout'/>">Logout</a>
 </div>
 
 </body>

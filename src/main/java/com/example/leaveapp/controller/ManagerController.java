@@ -1,17 +1,11 @@
 package com.example.leaveapp.controller;
 
-import com.example.leaveapp.entity.LeaveBalance;
 import com.example.leaveapp.entity.LeaveRequest;
-import com.example.leaveapp.entity.LeaveType;
 import com.example.leaveapp.entity.User;
-import com.example.leaveapp.repository.LeaveBalanceRepository;
-import com.example.leaveapp.repository.LeaveRequestRepository;
 import com.example.leaveapp.service.LeaveService;
 import com.example.leaveapp.service.ManagerService;
 
 import jakarta.servlet.http.HttpSession;
-
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,44 +21,45 @@ public class ManagerController {
     private ManagerService managerService;
 
     @Autowired
-    private LeaveBalanceRepository balanceRepo;
-
-    @Autowired
     private LeaveService leaveService;
 
-    @Autowired
-    private LeaveRequestRepository leaveRepo;
-
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model){
+    public String dashboard(HttpSession session, Model model) {
 
         User manager = (User) session.getAttribute("user");
 
-        if(manager == null){
+        if (manager == null) {
             return "redirect:/login";
         }
 
-        model.addAttribute("leaveRequests", managerService.getTeamLeaveRequests(manager));
+        model.addAttribute("leaveRequests",
+                managerService.getTeamLeaveRequests(manager));
 
-        model.addAttribute("myLeaves", leaveRepo.findByEmployee(manager));
+        model.addAttribute("myLeaves",
+                managerService.getManagerLeaves(manager));
 
         return "manager-dashboard";
     }
 
     @PostMapping("/approveLeave")
     public String approveLeave(@RequestParam Long leaveId,
-                            HttpSession session,
-                            RedirectAttributes redirectAttributes){
+                               HttpSession session,
+                               RedirectAttributes redirectAttributes) {
 
         User manager = (User) session.getAttribute("user");
 
-        try{
+        try {
+
             managerService.approveLeave(leaveId, manager);
-            redirectAttributes.addFlashAttribute("successMessage",
+
+            redirectAttributes.addFlashAttribute(
+                    "successMessage",
                     "Leave approved successfully");
 
-        }catch(RuntimeException ex){
-            redirectAttributes.addFlashAttribute("errorMessage",
+        } catch (RuntimeException ex) {
+
+            redirectAttributes.addFlashAttribute(
+                    "errorMessage",
                     ex.getMessage());
         }
 
@@ -73,19 +68,24 @@ public class ManagerController {
 
     @PostMapping("/rejectLeave")
     public String rejectLeave(@RequestParam Long leaveId,
-                            @RequestParam String comment,
-                            HttpSession session,
-                            RedirectAttributes redirectAttributes){
+                              @RequestParam String comment,
+                              HttpSession session,
+                              RedirectAttributes redirectAttributes) {
 
         User manager = (User) session.getAttribute("user");
 
-        try{
+        try {
+
             managerService.rejectLeave(leaveId, comment, manager);
-            redirectAttributes.addFlashAttribute("successMessage",
+
+            redirectAttributes.addFlashAttribute(
+                    "successMessage",
                     "Leave rejected");
 
-        }catch(RuntimeException ex){
-            redirectAttributes.addFlashAttribute("errorMessage",
+        } catch (RuntimeException ex) {
+
+            redirectAttributes.addFlashAttribute(
+                    "errorMessage",
                     ex.getMessage());
         }
 
@@ -93,29 +93,22 @@ public class ManagerController {
     }
 
     @GetMapping("/apply-leave")
-    public String applyLeavePage(HttpSession session, Model model){
+    public String applyLeavePage(HttpSession session, Model model) {
 
         User manager = (User) session.getAttribute("user");
 
-        if(manager == null){
+        if (manager == null) {
             return "redirect:/login";
         }
 
-        List<LeaveBalance> balances =
-                balanceRepo.findByEmployee(manager);
-
-        List<LeaveType> leaveTypes =
-                balances.stream()
-                        .map(LeaveBalance::getLeaveType)
-                        .toList();
-
-        model.addAttribute("leaveTypes", leaveTypes);
+        model.addAttribute("leaveTypes",
+                managerService.getLeaveTypes(manager));
 
         return "manager-apply-leave";
     }
 
     @PostMapping("/applyLeave")
-    public String applyLeave(LeaveRequest request, HttpSession session){
+    public String applyLeave(LeaveRequest request, HttpSession session) {
 
         User manager = (User) session.getAttribute("user");
 

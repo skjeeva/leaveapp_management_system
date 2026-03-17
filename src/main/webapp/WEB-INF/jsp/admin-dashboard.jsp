@@ -6,54 +6,85 @@
 <title>Admin Dashboard</title>
 
 <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f4f6fb;
+        margin: 0;
+    }
 
-.admin-links{
-display:flex;
-flex-direction:column;
-gap:12px;
-margin-top:10px;
-}
+    .page-title {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 28px;
+        color: #333;
+    }
 
-.admin-btn{
-display:block;
-padding:10px;
-background:#2f60d3;
-color:white;
-text-decoration:none;
-border-radius:6px;
-width:220px;
-text-align:center;
-}
+    .card-container {
+        width: 85%;
+        margin: 30px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-.admin-btn:hover{
-background:#254db3;
-}
+    .card-container:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
 
-.card-container{
-width:85%;
-margin:30px auto;
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
-}
+    h3 {
+        margin-bottom: 10px;
+        color: #444;
+        text-align: center;
+    }
+    .admin-links {
+        display: flex;
+        flex-wrap: wrap;              
+        justify-content: center;      
+        gap: 16px;
+        margin-top: 15px;
+    }
 
-.page-title{
-text-align:center;
-margin-top:40px;
-}
+    .admin-btn {
+        display: block;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, #2f60d3, #4a7df0);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        width: 240px;
+        text-align: center;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 10px rgba(47,96,211,0.2);
+    }
 
-.dashboard-links{
-text-align:center;
-margin-top:20px;
-}
+    .admin-btn:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 18px rgba(47,96,211,0.3);
+    }
 
-.dashboard-links a{
-margin:0 10px;
-color:#2f60d3;
-text-decoration:none;
-}
+    .admin-btn:active {
+        transform: scale(0.97);
+    }
 
+    .logout-btn {
+        background: linear-gradient(135deg, #e74c3c, #ff6b5a);
+        box-shadow: 0 4px 10px rgba(231,76,60,0.2);
+    }
+
+    .logout-btn:hover {
+        box-shadow: 0 6px 18px rgba(231,76,60,0.3);
+    }
+
+    .dashboard-links {
+        display: flex;
+        justify-content: center;
+        margin: 30px 0;
+    }
 </style>
 
 </head>
@@ -62,8 +93,8 @@ text-decoration:none;
 
 <h2 class="page-title">Admin Dashboard</h2>
 
+<jsp:include page="error.jsp"/>
 <div class="card-container">
-
 <h3>Employee Management</h3>
 
 <div class="admin-links">
@@ -112,7 +143,7 @@ Initialize Leave Balance
 </div>
 
 <div class="dashboard-links">
-<a href="<c:url value='/logout'/>">Logout</a>
+    <a class="admin-btn logout-btn" href="<c:url value='/logout'/>">Logout</a>
 </div>
 
 </body>

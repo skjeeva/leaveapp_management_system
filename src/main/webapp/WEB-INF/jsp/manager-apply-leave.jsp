@@ -1,4 +1,5 @@
-<%@ page import="java.util.*,com.example.leaveapp.entity.LeaveType" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 
@@ -6,74 +7,108 @@
 <title>Manager Apply Leave</title>
 
 <style>
-
     body{
-        font-family: Arial, sans-serif;
-        background:#eef2f7;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #eef2f7, #dbeafe);
+        margin:0;
     }
+
     .page-title{
         text-align:center;
         margin-top:40px;
+        color:#333;
     }
+
     .card-container{
         width:420px;
-        margin:40px auto;
+        margin:50px auto;
         background:white;
-        padding:30px;
-        border-radius:12px;
-        box-shadow:0 4px 20px rgba(0,0,0,0.1);
+        padding:35px;
+        border-radius:16px;
+        box-shadow:0 6px 25px rgba(0,0,0,0.08);
+        transition:0.25s ease;
     }
+
+    .card-container:hover{
+        transform:translateY(-3px);
+    }
+
     .leave-form{
         display:flex;
         flex-direction:column;
+        gap:12px;
     }
 
     .leave-form label{
-        font-weight:bold;
-        margin-top:12px;
+        font-weight:600;
+        color:#444;
     }
 
     .leave-form input,
     .leave-form select{
-        padding:8px;
-        margin-top:5px;
+        padding:10px;
         border:1px solid #ccc;
-        border-radius:6px;
+        border-radius:8px;
+        transition:0.2s ease;
     }
+
+    .leave-form input:focus,
+    .leave-form select:focus{
+        border-color:#2f60d3;
+        outline:none;
+        box-shadow:0 0 6px rgba(47,96,211,0.3);
+    }
+
     .btn-primary{
-        margin-top:18px;
-        background:#2f60d3;
+        margin-top:10px;
+        background: linear-gradient(135deg, #2f60d3, #4a7df0);
         color:white;
         border:none;
-        padding:10px;
-        border-radius:6px;
+        padding:12px;
+        border-radius:8px;
         cursor:pointer;
+        transition:0.25s ease;
     }
 
     .btn-primary:hover{
-        background:#254db3;
+        transform:translateY(-2px);
+        box-shadow:0 6px 18px rgba(47,96,211,0.3);
     }
+
+    .btn-primary:active{
+        transform:scale(0.97);
+    }
+
     .dashboard-links{
-        text-align:center;
-        margin-top:20px;
+        display:flex;
+        justify-content:center;
+        margin:30px 0;
     }
 
     .dashboard-links a{
-        color:#2f60d3;
+        padding:10px 18px;
+        background:#2f60d3;
+        color:white;
         text-decoration:none;
+        border-radius:8px;
+        transition:0.2s ease;
     }
 
+    .dashboard-links a:hover{
+        background:#254db3;
+    }
 </style>
 
 </head>
 
 <body>
 
+
 <h2 class="page-title">Apply Leave (Manager)</h2>
 
 <div class="card-container">
-
-<form class="leave-form" action="/manager/applyLeave" method="post">
+<jsp:include page="error.jsp"/>
+<form class="leave-form" action="<c:url value='/manager/applyLeave'/>" method="post">
 
 <label>Leave Type</label>
 
@@ -81,22 +116,11 @@
 
 <option value="">Select Leave Type</option>
 
-<%
-List<LeaveType> types =
-(List<LeaveType>) request.getAttribute("leaveTypes");
-
-if(types != null){
-for(LeaveType t : types){
-%>
-
-<option value="<%= t.getLeaveTypeId() %>">
-<%= t.getLeaveTypeName() %>
-</option>
-
-<%
-}
-}
-%>
+<c:forEach var="t" items="${leaveTypes}">
+    <option value="${t.leaveTypeId}">
+        ${t.leaveTypeName}
+    </option>
+</c:forEach>
 
 </select>
 
@@ -118,7 +142,7 @@ Apply Leave
 </div>
 
 <div class="dashboard-links">
-<a href="/manager/dashboard">Back to Dashboard</a>
+<a href="<c:url value='/manager/dashboard'/>">Back to Dashboard</a>
 </div>
 
 </body>

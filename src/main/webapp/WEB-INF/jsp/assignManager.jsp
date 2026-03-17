@@ -1,4 +1,5 @@
-<%@ page import="java.util.*, com.example.leaveapp.entity.User" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 
@@ -6,58 +7,94 @@
 <title>Assign Manager</title>
 
 <style>
-
-    body{
-        font-family: Arial, sans-serif;
-        background:#eef2f7;
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #eef2f7, #dbeafe);
+        margin: 0;
+        position: relative;
+    }
+    .page-title {
+        text-align: center;
+        margin-top: 40px;
+        color: #333;
+    }
+    .card-container {
+        width: 40%;
+        margin: 50px auto;
+        background: white;
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        transition: 0.25s ease;
     }
 
-    .page-title{
-        text-align:center;
-        margin-top:40px;
+    .card-container:hover {
+        transform: translateY(-4px);
     }
 
-    .card-container{
-        width:45%;
-        margin:40px auto;
-        background:white;
-        padding:30px;
-        border-radius:12px;
-        box-shadow:0 4px 20px rgba(0,0,0,0.1);
+    .form-group {
+        margin-bottom: 25px;
+    }
+    .form-group h3 {
+        margin-bottom: 8px;
+        color: #444;
+        font-size: 16px;
+    }
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: #f9fafc;
+        transition: 0.2s ease;
+        cursor: pointer;
     }
 
-    .form-group{
-        margin-bottom:20px;
+    select:focus {
+        border-color: #2f60d3;
+        outline: none;
+        box-shadow: 0 0 6px rgba(47,96,211,0.3);
     }
 
-    select{
-        width:100%;
-        padding:8px;
-        border:1px solid #ccc;
-        border-radius:5px;
+    .btn-primary {
+        width: 100%;
+        background: linear-gradient(135deg, #2f60d3, #4a7df0);
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: all 0.25s ease;
+        margin-top: 10px;
     }
 
-    .btn-primary{
-        background:#2f60d3;
-        color:white;
-        border:none;
-        padding:10px 16px;
-        border-radius:6px;
-        cursor:pointer;
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(47,96,211,0.3);
     }
 
-    .btn-primary:hover{
-        background:#254db3;
+    .btn-primary:active {
+        transform: scale(0.97);
     }
 
-    .dashboard-links{
-        text-align:center;
-        margin-top:20px;
+    .dashboard-links {
+        display: flex;
+        justify-content: center;
+        margin: 30px 0;
     }
 
-    .dashboard-links a{
-        color:#2f60d3;
-        text-decoration:none;
+    .dashboard-links a {
+        padding: 10px 18px;
+        background: #2f60d3;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: 0.2s ease;
+    }
+
+    .dashboard-links a:hover {
+        background: #254db3;
     }
 
 </style>
@@ -66,11 +103,12 @@
 
 <body>
 
-<h2 class="page-title">Assign Manager</h2>
 
+<h2 class="page-title">Assign Manager</h2>
+<jsp:include page="error.jsp"/>
 <div class="card-container">
 
-<form action="/admin/assignManager" method="post">
+<form action="<c:url value='/admin/assignManager'/>" method="post">
 
 <div class="form-group">
 
@@ -78,25 +116,11 @@
 
 <select name="employeeId">
 
-<%
-
-List<User> employees =
-(List<User>) request.getAttribute("employees");
-
-if(employees != null){
-
-for(User emp : employees){
-
-%>
-
-<option value="<%= emp.getUserId() %>">
-<%= emp.getName() %>
-</option>
-
-<%
-}
-}
-%>
+<c:forEach var="emp" items="${employees}">
+    <option value="${emp.userId}">
+        ${emp.name}
+    </option>
+</c:forEach>
 
 </select>
 
@@ -109,25 +133,11 @@ for(User emp : employees){
 
 <select name="managerId">
 
-<%
-
-List<User> managers =
-(List<User>) request.getAttribute("managers");
-
-if(managers != null){
-
-for(User mgr : managers){
-
-%>
-
-<option value="<%= mgr.getUserId() %>">
-<%= mgr.getName() %>
-</option>
-
-<%
-}
-}
-%>
+<c:forEach var="mgr" items="${managers}">
+    <option value="${mgr.userId}">
+        ${mgr.name}
+    </option>
+</c:forEach>
 
 </select>
 
@@ -142,7 +152,7 @@ Assign Manager
 </div>
 
 <div class="dashboard-links">
-<a href="/admin/dashboard">Back to Dashboard</a>
+<a href="<c:url value='/admin/dashboard'/>">Back to Dashboard</a>
 </div>
 
 </body>

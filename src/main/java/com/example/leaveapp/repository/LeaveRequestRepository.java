@@ -17,4 +17,8 @@ public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Long
     List<LeaveRequest> findByEmployee_Role_RoleName(String roleName);
 
     void deleteByEmployee(User employee);
+
+    List<LeaveRequest> findByEmployee_DeletedFalse();
+
+    List<LeaveRequest> findByEmployee_Role_RoleNameAndEmployee_DeletedFalse(String roleName);
 }
