@@ -1,161 +1,80 @@
-🗂 Leave Management System
+# Leave Management System
 
-A Leave Management System built using Java Spring Boot, Maven, JSP, and MySQL.
-
-This application helps organizations manage employee leave requests efficiently. Employees can apply for leave, managers can review and approve requests, and administrators can manage employees and leave policies.
+A role-based Leave Management System built using Java and JSP that helps organizations manage employee leave requests efficiently.
 
 ---
 
-# 🚀 Features
+## 🚀 Features
 
-## 👩‍💼 Employee
+### 👤 Employee
+- Apply for leave
+- View leave request status (Pending / Approved / Rejected)
+- Check leave balance
+- View manager comments
 
-* Apply for leave
-* View available leave balance
-* Track the status of submitted leave requests
+### 👨‍💼 Manager
+- Approve or reject employee leave requests
+- Provide comments while rejecting
+- View team leave requests
+- Apply leave
 
-## 👨‍💼 Manager
-
-* Approve or reject employee leave requests
-* View leave requests submitted by employees
-
-## 🛠 Admin
-
-* Manage employee records
-* Manage leave types
-* Monitor overall leave records
-
----
-
-# 🧰 Tech Stack
-
-## Backend
-
-* Java
-* Spring Boot
-* Spring MVC
-* Spring Data JPA
-
-## Frontend
-
-* JSP
-* HTML
-* CSS
-
-## Database
-
-* Oracle DB
-
-## Database Tool
-
-* Oracle SQL Developer
-
-## Build Tool
-
-* Maven
+### 🛠 Admin
+- Add and manage employees
+- Assign managers to employees
+- Manage leave types
+- Initialize leave balances
+- View all leave requests
+- Handle manager leave approvals
 
 ---
 
-# 📂 Project Structure
+## 🧰 Tech Stack
 
-```
-leaveapp_management_system
+- **Backend:** Java, Spring Boot
+- **Frontend:** JSP, HTML, CSS
+- **Database:** MySQL
+- **Build Tool:** Maven
+- **Server:** Embedded Tomcat
+
+---
+
+## 📂 Project Structure
+
+src/
+└── main/
+├── java/com/example/leaveapp/
+│ ├── config/
+│ ├── controller/
+│ ├── entity/
+│ ├── exception/
+│ ├── interceptor/
+│ ├── repository/
+│ ├── service/
+│ └── LeaveappApplication.java ==> main function
 │
-├── controller      # Handles HTTP requests
-├── entity          # Database entities
-├── repository      # JPA repositories
-├── service         # Business logic layer
-├── exception       # Global exception handling
+├── resources/
 │
-├── resources
-│   ├── application.properties
-│   └── WEBAPP / WEB-INF / jsp     #jsp pages
-│
-└── Leaveapp.sql    # Database schema
-```
+└── webapp/WEB-INF/jsp/ ==> jsp files
 
----
 
-# ⚙️ Installation & Setup
+## ⚙️ Setup Instructions
 
-## 1️⃣ Clone the repository
-
+### 1. Clone the repository
 ```bash
 git clone https://github.com/skjeeva/leaveapp_management_system.git
-```
-
----
-
-## 2️⃣ Navigate to the project directory
-
-```bash
 cd leaveapp_management_system
 ```
 
----
+## 2. Configure Database
 
-# Database Setup
+Create an Oracle database
+Update your DB credentials in:
+application.properties
 
-1️⃣ Open Oracle SQL Developer
+## 3. Run the application
 
-# Connect to your Oracle Database using SQL Developer.
-
-2️⃣ Import the SQL file
-
-# Run the script:
-
-Leaveapp.sql
-
-This will create the required tables.
-
-3️⃣ Configure database connection
-
-# Update application.properties
-
-spring.datasource.url=jdbc:oracle:thin:@localhost:1521:XE
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
-spring.jpa.database-platform=org.hibernate.dialect.OracleDialect
-
-
-## 4️⃣ Run the Application
-
-Using Maven:
-
-```bash
 mvn spring-boot:run
-```
 
-Or run the main class:
+## 4. Open in browser
 
-```
-LeaveappApplication.java
-```
-
----
-
-# 📦 Application Modules
-
-| Module             | Description                       |
-| ------------------ | --------------------------------- |
-| AuthController     | Handles authentication and login  |
-| EmployeeController | Handles employee leave operations |
-| ManagerController  | Handles manager approval workflow |
-| AdminController    | Handles admin management features |
-
----
-
-# 🗄 Database Entities
-
-* User
-* Role
-* Employee
-* LeaveRequest
-* LeaveBalance
-* LeaveType
-* EmployeeManager
-
-
-* architecture diagram
-* API endpoints section.
+http://localhost:8080/
