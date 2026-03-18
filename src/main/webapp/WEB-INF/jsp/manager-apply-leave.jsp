@@ -103,11 +103,10 @@
 
 <body>
 
-
+<jsp:include page="error.jsp"/>
 <h2 class="page-title">Apply Leave (Manager)</h2>
 
 <div class="card-container">
-<jsp:include page="error.jsp"/>
 <form class="leave-form" action="<c:url value='/manager/applyLeave'/>" method="post">
 
 <label>Leave Type</label>

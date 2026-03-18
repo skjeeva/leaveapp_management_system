@@ -177,7 +177,7 @@
 </head>
 
 <body>
-
+<jsp:include page="error.jsp"/>
 <h2 class="page-title">Manager Dashboard</h2>
 
 <div class="manager-actions">

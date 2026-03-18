@@ -109,10 +109,12 @@
 </head>
 
 <body>
+<jsp:include page="error.jsp"/>
+
 <h2 class="page-title">Initialize Leave Balance</h2>
 
 <div class="card-container">
-<jsp:include page="error.jsp"/>
+
 
 
 <form action="<c:url value='/admin/initializeLeaveBalance'/>" method="post">

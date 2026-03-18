@@ -153,11 +153,10 @@
 </head>
 
 <body>
-
+<jsp:include page="error.jsp"/>
 <h2 class="page-title">Manage Employees</h2>
 
 <div class="card-container">
-<jsp:include page="error.jsp"/>
 <h3>Add Employee</h3>
 
 <form action="<c:url value='/admin/addEmployee'/>" method="post">

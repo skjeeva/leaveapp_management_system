@@ -123,11 +123,12 @@
 </head>
 
 <body>
-
+<jsp:include page="error.jsp"/>
 <h2 class="page-title">Leave Types</h2>
 
+
 <div class="card-container">
-<jsp:include page="error.jsp"/>
+
 <h3>Add Leave Type</h3>
 
 <form action="<c:url value='/admin/addLeaveType'/>" method="post">
